@@ -2,6 +2,7 @@ package users
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/AJackTi/bookstore_users-api/domain/users"
 	"github.com/AJackTi/bookstore_users-api/services"
@@ -26,7 +27,19 @@ func CreateUser(c *gin.Context) {
 }
 
 func GetUser(c *gin.Context) {
-	c.String(http.StatusNotImplemented, "implement me!")
+	userID, err := strconv.ParseInt(c.Param("user_id"), 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, errors.NewBadRequestError("user id should be a number"))
+		return
+	}
+
+	user, restErr := services.GetUser(userID)
+	if restErr != nil {
+		c.JSON(restErr.Status, restErr)
+		return
+	}
+
+	c.JSON(http.StatusOK, *user)
 }
 
 func FindUser(c *gin.Context) {

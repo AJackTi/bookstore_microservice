@@ -60,3 +60,8 @@ func UpdateUser(isPartial bool, user *users.User) (*users.User, *errors.RestErr)
 
 	return current, nil
 }
+
+func DeleteUser(userID int64) *errors.RestErr {
+	user := &users.User{ID: userID}
+	return user.Delete()
+}

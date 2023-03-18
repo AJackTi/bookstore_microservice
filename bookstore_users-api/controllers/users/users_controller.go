@@ -10,7 +10,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func CreateUser(c *gin.Context) {
+func getUserID(userIDParam string) (int64, *errors.RestErr) {
+	userID, err := strconv.ParseInt(userIDParam, 10, 64)
+	if err != nil {
+		return 0, errors.NewBadRequestError("user id should be a number")
+	}
+
+	return userID, nil
+}
+
+func Create(c *gin.Context) {
 	var user users.User
 	if err := c.ShouldBindJSON(&user); err != nil {
 		c.JSON(http.StatusBadRequest, errors.NewBadRequestError("invalid json body"))
@@ -26,10 +35,10 @@ func CreateUser(c *gin.Context) {
 	c.JSON(http.StatusCreated, *result)
 }
 
-func GetUser(c *gin.Context) {
-	userID, err := strconv.ParseInt(c.Param("user_id"), 10, 64)
+func Get(c *gin.Context) {
+	userID, err := getUserID(c.Param("user_id"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, errors.NewBadRequestError("user id should be a number"))
+		c.JSON(err.Status, errors.NewBadRequestError("user id should be a number"))
 		return
 	}
 
@@ -42,14 +51,14 @@ func GetUser(c *gin.Context) {
 	c.JSON(http.StatusOK, *user)
 }
 
-func FindUser(c *gin.Context) {
+func Find(c *gin.Context) {
 	c.String(http.StatusNotImplemented, "implement me!")
 }
 
-func UpdateUser(c *gin.Context) {
-	userID, err := strconv.ParseInt(c.Param("user_id"), 10, 64)
+func Update(c *gin.Context) {
+	userID, err := getUserID(c.Param("user_id"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, errors.NewBadRequestError("user id should be a number"))
+		c.JSON(err.Status, errors.NewBadRequestError("user id should be a number"))
 		return
 	}
 	
@@ -70,4 +79,19 @@ func UpdateUser(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, result)
+}
+
+func Delete(c *gin.Context) {
+	userID, err := getUserID(c.Param("user_id"))
+	if err != nil {
+		c.JSON(err.Status, errors.NewBadRequestError("user id should be a number"))
+		return
+	}
+
+	if err := services.DeleteUser(userID); err != nil {
+		c.JSON(err.Status, err)
+		return
+	}
+
+	c.JSON(http.StatusOK, map[string]string{"status": "deleted"})
 }

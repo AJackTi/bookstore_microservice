@@ -45,3 +45,29 @@ func GetUser(c *gin.Context) {
 func FindUser(c *gin.Context) {
 	c.String(http.StatusNotImplemented, "implement me!")
 }
+
+func UpdateUser(c *gin.Context) {
+	userID, err := strconv.ParseInt(c.Param("user_id"), 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, errors.NewBadRequestError("user id should be a number"))
+		return
+	}
+	
+	var user users.User
+	if err := c.ShouldBindJSON(&user); err != nil {
+		c.JSON(http.StatusBadRequest, errors.NewBadRequestError("invalid json body"))
+		return
+	}
+
+	user.ID = userID
+
+	isPartial := c.Request.Method == http.MethodPatch
+
+	result, restErr := services.UpdateUser(isPartial, &user)
+	if restErr != nil {
+		c.JSON(restErr.Status, restErr)
+		return
+	}
+
+	c.JSON(http.StatusOK, result)
+}

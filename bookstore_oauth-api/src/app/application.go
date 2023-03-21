@@ -19,11 +19,12 @@ func StartApplication() {
 	}
 	defer session.Close()
 
-	dbRepository := db.NewRepository()
+	dbRepository := db.NewRepository(session)
 	atService := access_token.NewService(dbRepository)
 	atHandler := http.NewHandler(atService)
 
 	router.GET("/oauth/access_token/:access_token_id", atHandler.GetByID)
+	router.POST("/oauth/access_token", atHandler.Create)
 
 	router.Run(":8080")
 }

@@ -14,4 +14,5 @@ func route() {
 	router.PATCH("/users/:user_id", users.Update)
 	router.DELETE("/users/:user_id", users.Delete)
 	router.GET("/users/search", users.Search)
+	router.POST("/users/login", users.Login)
 }

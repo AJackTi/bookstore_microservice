@@ -31,5 +31,5 @@ func TestLoginUserTimeoutFromApi(t *testing.T) {
 	assert.Nil(t, user)
 	assert.NotNil(t, err)
 	assert.EqualValues(t, http.StatusInternalServerError, err.Status)
-	assert.EqualValues(t, "invalid restclient response when trying to login user", err.Message)
+	assert.EqualValues(t, "invalid restclient response when trying to login user", (*err).Detail)
 }

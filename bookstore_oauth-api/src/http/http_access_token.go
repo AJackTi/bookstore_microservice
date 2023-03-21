@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/AJackTi/bookstore_oauth-api/src/domain/access_token"
+	"github.com/AJackTi/bookstore_oauth-api/src/services"
 	"github.com/AJackTi/bookstore_oauth-api/src/utils/errors"
 	"github.com/gin-gonic/gin"
 )
@@ -14,10 +15,10 @@ type AccessTokenHandler interface {
 }
 
 type accessTokenHandler struct {
-	service access_token.Service
+	service services.Service
 }
 
-func NewHandler(service access_token.Service) AccessTokenHandler {
+func NewHandler(service services.Service) AccessTokenHandler {
 	return &accessTokenHandler{
 		service: service,
 	}
@@ -35,13 +36,13 @@ func (handler *accessTokenHandler) GetByID(c *gin.Context) {
 }
 
 func (handler *accessTokenHandler) Create(c *gin.Context) {
-	var at access_token.AccessToken
+	var at access_token.AccessTokenRequest
 	if err := c.ShouldBindJSON(&at); err != nil {
-		c.JSON(http.StatusBadRequest, errors.NewBadRequestError("invalid json body"))
+		c.JSON(http.StatusBadRequest, errors.New(http.StatusBadRequest, "invalid json body"))
 		return
 	}
 
-	if err := handler.service.Create(&at); err != nil {
+	if _, err := handler.service.Create(at); err != nil {
 		c.JSON(err.Status, err)
 		return
 	}

@@ -2,6 +2,7 @@ package rest
 
 import (
 	"encoding/json"
+	"net/http"
 	"time"
 
 	"github.com/AJackTi/bookstore_oauth-api/src/domain/users"
@@ -34,14 +35,14 @@ func (r *usersRepository) LoginUser(email string, password string) (*users.User,
 	}
 	response := usersRestClient.Post("/users/login", request)
 	if response == nil || response.Response == nil {
-		return nil, errors.NewInternalServerError("invalid restclient response when trying to login user")
+		return nil, errors.New(http.StatusInternalServerError, "invalid restclient response when trying to login user")
 	}
 
 	if response.StatusCode > 299 {
 		var restErr errors.RestErr
 		err := json.Unmarshal(response.Bytes(), &restErr)
 		if err != nil {
-			return nil, errors.NewInternalServerError("invalid error interface when trying to login user")
+			return nil, errors.New(http.StatusInternalServerError, "invalid error interface when trying to login user")
 		}
 
 		return nil, &restErr
@@ -49,7 +50,7 @@ func (r *usersRepository) LoginUser(email string, password string) (*users.User,
 
 	var user users.User
 	if err := json.Unmarshal(response.Bytes(), &user); err != nil {
-		return nil, errors.NewInternalServerError("error when trying to unmarshal users response")
+		return nil, errors.New(http.StatusInternalServerError, "error when trying to unmarshal users response")
 	}
 
 	return &user, nil

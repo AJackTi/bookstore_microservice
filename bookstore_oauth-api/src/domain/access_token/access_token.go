@@ -1,6 +1,8 @@
 package access_token
 
-import "time"
+import (
+	"time"
+)
 
 const (
 	expirationTime = 24

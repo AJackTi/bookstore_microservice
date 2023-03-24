@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/AJackTi/bookstore_microservice/bookstore_oauth-go/oauth"
+	"github.com/AJackTi/bookstore_oauth-go/oauth"
 	"github.com/AJackTi/bookstore_users-api/domain/users"
 	"github.com/AJackTi/bookstore_users-api/services"
 	"github.com/AJackTi/bookstore_users-api/utils/errors"
@@ -56,6 +56,7 @@ func Get(c *gin.Context) {
 
 	if oauth.GetCallerId(c.Request) == user.ID {
 		c.JSON(http.StatusOK, user.Marshal(false))
+		return
 	}
 
 	c.JSON(http.StatusOK, (*user).Marshal(c.GetHeader("X-Public") == "true"))

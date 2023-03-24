@@ -1,12 +1,14 @@
 package access_token
 
 import (
+	"errors"
 	"fmt"
+	"net/http"
 	"strings"
 	"time"
 
 	"github.com/AJackTi/bookstore_oauth-api/src/utils/cryptos"
-	"github.com/AJackTi/bookstore_oauth-api/src/utils/errors"
+	"github.com/AJackTi/bookstore_utils-go/rest_errors"
 )
 
 const (
@@ -35,19 +37,19 @@ func GetNewAccessToken(userID int64) AccessToken {
 	}
 }
 
-func (at *AccessToken) Validate() *errors.RestErr {
+func (at *AccessToken) Validate() *rest_errors.RestErr {
 	at.AccessToken = strings.TrimSpace(at.AccessToken)
 	if at.AccessToken == "" {
-		return errors.New(500)
+		return rest_errors.New(http.StatusInternalServerError, errors.New("invalid access token"))
 	}
 	if at.UserID <= 0 {
-		return errors.New(400, "invalid user")
+		return rest_errors.New(http.StatusBadRequest, errors.New("invalid user"))
 	}
 	if at.ClientID <= 0 {
-		return errors.New(400, "invalid client id")
+		return rest_errors.New(http.StatusBadRequest, errors.New("invalid client id"))
 	}
 	if at.Expires <= 0 {
-		return errors.New(400, "invalid Expired time")
+		return rest_errors.New(http.StatusBadRequest, errors.New("invalid Expired time"))
 	}
 
 	return nil
@@ -67,7 +69,7 @@ type AccessTokenRequest struct {
 	ClientSecret string `json:"client_secret"`
 }
 
-func (atr *AccessTokenRequest) Validate() *errors.RestErr {
+func (atr *AccessTokenRequest) Validate() *rest_errors.RestErr {
 
 	atr.GrantType = strings.TrimSpace(atr.GrantType)
 
@@ -76,24 +78,24 @@ func (atr *AccessTokenRequest) Validate() *errors.RestErr {
 		atr.UserName = strings.TrimSpace(atr.UserName)
 		atr.Password = strings.TrimSpace(atr.Password)
 		if atr.UserName == "" {
-			return errors.New(400)
+			return rest_errors.New(http.StatusBadRequest, errors.New("invalid username or password"))
 		}
 		if atr.Password == "" {
-			return errors.New(400)
+			return rest_errors.New(http.StatusBadRequest, errors.New("invalid username or password"))
 		}
 		break
 
 	case grandTypeClientCredentials:
 		if atr.ClientId == "" {
-			return errors.New(400)
+			return rest_errors.New(http.StatusBadRequest, errors.New("invalid client id"))
 		}
 		if atr.ClientSecret == "" {
-			return errors.New(400)
+			return rest_errors.New(http.StatusBadRequest, errors.New("invalid client secret"))
 		}
 		break
 
 	default:
-		return errors.New(400, "invalid grantype")
+		return rest_errors.New(http.StatusBadRequest, errors.New("invalid grant type"))
 	}
 
 	return nil

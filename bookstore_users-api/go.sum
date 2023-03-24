@@ -2,6 +2,8 @@ github.com/AJackTi/bookstore_oauth-go v0.0.0-20230324034957-f950db773455 h1:WGYY
 github.com/AJackTi/bookstore_oauth-go v0.0.0-20230324034957-f950db773455/go.mod h1:tPTWwR7ywi5V6oAaN/jPZUs08cNVXmNoKm74VAJ3gUw=
 github.com/AJackTi/bookstore_oauth-go v0.0.0-20230324040004-839abb68c643 h1:0exeabT2CIicppJUUSJvUQtKN9adLlvQOJvl1ZKEEa4=
 github.com/AJackTi/bookstore_oauth-go v0.0.0-20230324040004-839abb68c643/go.mod h1:tPTWwR7ywi5V6oAaN/jPZUs08cNVXmNoKm74VAJ3gUw=
+github.com/AJackTi/bookstore_utils-go v0.0.0-20230324063401-8948693471e3 h1:29QxIMwBmMaVce+JwluufK4XBZpADzQtfonvyJ3ud4k=
+github.com/AJackTi/bookstore_utils-go v0.0.0-20230324063401-8948693471e3/go.mod h1:YqH0IGEI48LN2/O6+tcHDaJWbdxRLSfQSLkIcU5IRc4=
 github.com/benbjohnson/clock v1.1.0 h1:Q92kusRqC1XV2MjkWETPvjJVqKetz1OzxZB7mHJLju8=
 github.com/bytedance/sonic v1.5.0/go.mod h1:ED5hyg4y6t3/9Ku1R6dU/4KyJ48DZ4jPhfY1O2AihPM=
 github.com/bytedance/sonic v1.8.0 h1:ea0Xadu+sHlu7x5O3gKhRpQ1IKiMrSiHttPF0ybECuA=

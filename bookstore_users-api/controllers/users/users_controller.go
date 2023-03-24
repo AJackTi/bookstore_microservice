@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/AJackTi/bookstore_microservice/bookstore_oauth-go/oauth"
 	"github.com/AJackTi/bookstore_users-api/domain/users"
 	"github.com/AJackTi/bookstore_users-api/services"
 	"github.com/AJackTi/bookstore_users-api/utils/errors"
@@ -36,6 +37,11 @@ func Create(c *gin.Context) {
 }
 
 func Get(c *gin.Context) {
+	if err := oauth.AuthenticateRequest(c.Request); err != nil {
+		c.JSON(err.Status, err)
+		return
+	}
+
 	userID, err := getUserID(c.Param("user_id"))
 	if err != nil {
 		c.JSON(err.Status, errors.NewBadRequestError("user id should be a number"))
@@ -46,6 +52,10 @@ func Get(c *gin.Context) {
 	if restErr != nil {
 		c.JSON(restErr.Status, restErr)
 		return
+	}
+
+	if oauth.GetCallerId(c.Request) == user.ID {
+		c.JSON(http.StatusOK, user.Marshal(false))
 	}
 
 	c.JSON(http.StatusOK, (*user).Marshal(c.GetHeader("X-Public") == "true"))

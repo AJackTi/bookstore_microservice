@@ -8,9 +8,6 @@
 		},
 		{
 			"path": "bookstore_users-api"
-		},
-		{
-			"path": "bookstore_oauth-go"
 		}
 	],
     "settings": {}

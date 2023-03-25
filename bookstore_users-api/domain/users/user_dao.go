@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	"github.com/AJackTi/bookstore_users-api/datasource/mysql/users_db"
-	"github.com/AJackTi/bookstore_users-api/logger"
+	"github.com/AJackTi/bookstore_utils-go/logger"
 	"github.com/AJackTi/bookstore_utils-go/rest_errors"
 )
 

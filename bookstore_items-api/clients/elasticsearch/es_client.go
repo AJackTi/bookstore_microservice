@@ -17,6 +17,7 @@ type esClientInterface interface {
 	setClient(*elastic.Client)
 	Index(string, string, interface{}) (*elastic.IndexResponse, error)
 	Get(string, string, string) (*elastic.GetResult, error)
+	Search(string, elastic.Query) (*elastic.SearchResult, error)
 }
 
 type esClient struct {
@@ -70,6 +71,20 @@ func (c *esClient) Get(index, docType, id string) (*elastic.GetResult, error) {
 		Do(ctx)
 	if err != nil {
 		logger.Error(fmt.Sprintf("error when trying to get id %s", id), err)
+		return nil, err
+	}
+
+	return result, nil
+}
+
+func (c *esClient) Search(index string, query elastic.Query) (*elastic.SearchResult, error) {
+	ctx := context.Background()
+
+	result, err := c.client.Search(index).RestTotalHitsAsInt(true).Query(query).Do(ctx)
+	if err != nil {
+		logger.Error(
+			fmt.Sprintf("error when trying to search documents in index %s", index),
+			fmt.Errorf("error when trying to search documents in index %s", index))
 		return nil, err
 	}
 

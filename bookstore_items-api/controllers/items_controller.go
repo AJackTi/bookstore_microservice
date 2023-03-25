@@ -5,12 +5,14 @@ import (
 	"errors"
 	"io/ioutil"
 	"net/http"
+	"strings"
 
 	"github.com/AJackTi/bookstore_items-api/domain/items"
 	"github.com/AJackTi/bookstore_items-api/services"
 	"github.com/AJackTi/bookstore_items-api/utils/http_utils"
 	"github.com/AJackTi/bookstore_oauth-go/oauth"
 	"github.com/AJackTi/bookstore_utils-go/rest_errors"
+	"github.com/gorilla/mux"
 )
 
 var (
@@ -59,5 +61,14 @@ func (c *itemsController) Create(w http.ResponseWriter, r *http.Request) {
 }
 
 func (c *itemsController) Get(w http.ResponseWriter, r *http.Request) {
-	return
+	vars := mux.Vars(r)
+	itemID := strings.TrimSpace(vars["id"])
+
+	item, err := services.ItemsService.Get(itemID)
+	if err != nil {
+		http_utils.ResponseError(w, err)
+		return
+	}
+
+	http_utils.ResponseJson(w, http.StatusOK, item)
 }

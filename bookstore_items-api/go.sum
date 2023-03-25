@@ -2,6 +2,12 @@ github.com/AJackTi/bookstore_oauth-go v0.0.0-20230324082955-9e20fa41ec2d h1:BXl0
 github.com/AJackTi/bookstore_oauth-go v0.0.0-20230324082955-9e20fa41ec2d/go.mod h1:crp4/tuWIfFcadM5vc4hDgvOd4p2zEDkzY8jhsDILks=
 github.com/AJackTi/bookstore_utils-go v0.0.0-20230325033252-2d8ac47dcd30 h1:7zTcM6qzEKUPKIWIhkF9POiMJwavac9g8MJVcKn6bbk=
 github.com/AJackTi/bookstore_utils-go v0.0.0-20230325033252-2d8ac47dcd30/go.mod h1:FeNC0Y3f+qFNDfbzphYpilawtlhh2APsx/SWOdHJayQ=
+github.com/AJackTi/bookstore_utils-go v0.0.0-20230325040032-84608c0d7c4d h1:a0PuAU+3hHiFe0DYWwinrkK2ZfPYEdTV/M3ZWMQdKJU=
+github.com/AJackTi/bookstore_utils-go v0.0.0-20230325040032-84608c0d7c4d/go.mod h1:FeNC0Y3f+qFNDfbzphYpilawtlhh2APsx/SWOdHJayQ=
+github.com/AJackTi/bookstore_utils-go v0.0.0-20230325042934-eb1146cfd541 h1:z3jnJCrGxYw3HrsdNnXIhWsnoCpRwWnnurRze6X60Go=
+github.com/AJackTi/bookstore_utils-go v0.0.0-20230325042934-eb1146cfd541/go.mod h1:FeNC0Y3f+qFNDfbzphYpilawtlhh2APsx/SWOdHJayQ=
+github.com/AJackTi/bookstore_utils-go v0.0.0-20230325044034-ca8f801fa5f7 h1:hUJcCWCB/CXZCpG8QbAzIedO5sRjJrUgZT4JGRFNz6Q=
+github.com/AJackTi/bookstore_utils-go v0.0.0-20230325044034-ca8f801fa5f7/go.mod h1:FeNC0Y3f+qFNDfbzphYpilawtlhh2APsx/SWOdHJayQ=
 github.com/benbjohnson/clock v1.1.0 h1:Q92kusRqC1XV2MjkWETPvjJVqKetz1OzxZB7mHJLju8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=

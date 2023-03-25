@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/AJackTi/bookstore_oauth-go v0.0.0-20230324082955-9e20fa41ec2d
-	github.com/AJackTi/bookstore_utils-go v0.0.0-20230325033252-2d8ac47dcd30
+	github.com/AJackTi/bookstore_utils-go v0.0.0-20230325044034-ca8f801fa5f7
 	github.com/gorilla/mux v1.8.0
 	github.com/olivere/elastic v6.2.37+incompatible
 )

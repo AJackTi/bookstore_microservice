@@ -4,12 +4,12 @@ go 1.20
 
 require (
 	github.com/AJackTi/bookstore_oauth-go v0.0.0-20230324082955-9e20fa41ec2d
-	github.com/AJackTi/bookstore_utils-go v0.0.0-20230325033252-2d8ac47dcd30
 	github.com/gin-gonic/gin v1.9.0
 	github.com/go-sql-driver/mysql v1.7.0
 )
 
 require (
+	github.com/AJackTi/bookstore_utils-go v0.0.0-20230325044034-ca8f801fa5f7 // indirect
 	github.com/bytedance/sonic v1.8.6 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
